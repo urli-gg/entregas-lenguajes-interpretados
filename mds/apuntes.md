@@ -22,3 +22,42 @@
 ## Atajos de VS Code
 
 - `Ctrl + J` → abre la terminal integrada en el editor.
+
+# mis apuntes
+# Encabezado nvl 1
+## Encabezado nvl2
+### Encabezadfo nvl3
+
+Esto es un parrafo en árráfo markdown se termina cuando damos enter  
+
+esto es otro parrafo  
+
+Para poner ne negritas debes encerrar la palabra entre **  
+**negro**
+
+para poner cursiva debes encerrar la palabras en _shine_  
+
+para poner en cursiva y negra... _**negro**_
+
+- primavera
+- verano
+- otoño
+- invierno
+
+- verano
+- otoRo
+- invierno
+
+1. primavera
+1. verano
+1. otoNo
+1. invierno
+
+|Pais    | Continente | ciudad  |
+|--------|------------|---------|
+|mexico  | america    | cdmx    |
+|Francia | europa     | francia |
+|españa  | europa     | marruecos |
+
+
+![PAPI GOJO](https://www.akihabara.es/wp-content/uploads/2024/12/jujutsu-kaisen-satoru-gojo-death-muerte-sukuna.jpg_673822677.webp)
