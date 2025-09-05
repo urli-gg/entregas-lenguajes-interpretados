@@ -1,9 +1,8 @@
 # Asignaturas 3DEVs
 
-## Progra. En lenguajes Interpretados
-### Docente: Jonathan Miranda
+## Sistemas operativos
+### Alcides Albora
 
-En esta materia estamos aprendiendo todo acerca de la programacion en lenguajes interpretados, por el momento hemos visto temas como: "Introduccion a marcdown" "Ramas"
-Tambien revisamos varios comandos para la consola de visual studio code.
+En esta materia estamos viendo todo lo relacionado con los sistemas operativos de la computadora, ademas de conocer la bios de la computadora y comenzamos a trabajar en una maquina virtual
 
-![Imagen representativa](/assets/lenguajes.png)
+![Imagen representativa](/assets/sistemas.png)
