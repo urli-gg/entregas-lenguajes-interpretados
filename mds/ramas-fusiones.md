@@ -1,1 +1,8 @@
 # Asignaturas 3DEVs
+
+## Sistemas operativos
+### Alcides Albora
+
+En esta materia estamos viendo todo lo relacionado con los sistemas operativos de la computadora, ademas de conocer la bios de la computadora y comenzamos a trabajar en una maquina virtual
+
+![Imagen representativa](/assets/sistemas.png)
