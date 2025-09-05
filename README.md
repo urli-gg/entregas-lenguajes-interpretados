@@ -17,3 +17,7 @@ Me gustaria dedicarme a la ia, creo que es un campo nuevo y tiene mucho futuro a
 
 ## Entregables
 - [Apuntes](mds/apuntes.md)
+
+## Entrega 2
+
+[Practica 2](mds/ramas-fusiones.md)
