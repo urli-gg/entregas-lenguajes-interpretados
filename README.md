@@ -21,3 +21,5 @@ Me gustaria dedicarme a la ia, creo que es un campo nuevo y tiene mucho futuro a
 ## Entrega 2
 
 [Practica 2](mds/ramas-fusiones.md)
+
+[Practica 3](/mds/etiquetas.md)
