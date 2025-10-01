@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pong</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #000;
+        margin: 0;
+      }
+      canvas {
+        background: #222;
+        display: block;
+        margin: auto;
+      }
+      #score {
+        color: white;
+        font-family: Arial, sans-serif;
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="score">Jugador 1: 0 - Jugador 2: 0</div>
+    <canvas id="pong" width="800" height="500"></canvas>
+
+    <script>
+      const canvas = document.getElementById("pong");
+      const ctx = canvas.getContext("2d");
+
+      const paddleWidth = 10;
+      const paddleHeight = 100;
+      const ballRadius = 8;
+      const winningScore = 5;
+
+      let paddle1 = { x: 0, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
+      let paddle2 = {
+        x: canvas.width - paddleWidth,
+        y: canvas.height / 2 - paddleHeight / 2,
+        score: 0,
+      };
+
+      let ball = {
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        speedX: 5 * (Math.random() > 0.5 ? 1 : -1),
+        speedY: 3 * (Math.random() * 2 - 1),
+      };
+
+      let upArrowPressed = false;
+      let downArrowPressed = false;
+      let wPressed = false;
+      let sPressed = false;
+      let gameOver = false;
+
+      // Draw paddle
+      function drawPaddle(x, y) {
+        ctx.fillStyle = "white";
+        ctx.fillRect(x, y, paddleWidth, paddleHeight);
+      }
+
+      // Draw ball
+      function drawBall(x, y) {
+        ctx.beginPath();
+        ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+        ctx.fillStyle = "white";
+        ctx.fill();
+        ctx.closePath();
+      }
+
+      // Draw everything
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawPaddle(paddle1.x, paddle1.y);
+        drawPaddle(paddle2.x, paddle2.y);
+        drawBall(ball.x, ball.y);
+      }
+
+      // Update paddle positions based on keys
+      function updatePaddles() {
+        if (wPressed && paddle1.y > 0) {
+          paddle1.y -= 7;
+        }
+        if (sPressed && paddle1.y < canvas.height - paddleHeight) {
+          paddle1.y += 7;
+        }
+        if (upArrowPressed && paddle2.y > 0) {
+          paddle2.y -= 7;
+        }
+        if (downArrowPressed && paddle2.y < canvas.height - paddleHeight) {
+          paddle2.y += 7;
+        }
+      }
+
+      // Reset ball to center
+      function resetBall() {
+        ball.x = canvas.width / 2;
+        ball.y = canvas.height / 2;
+        ball.speedX = 5 * (Math.random() > 0.5 ? 1 : -1);
+        ball.speedY = 3 * (Math.random() * 2 - 1);
+      }
+
+      // Update ball position and check collisions
+      function updateBall() {
+        ball.x += ball.speedX;
+        ball.y += ball.speedY;
+
+        // Collide with top and bottom walls
+        if (ball.y + ballRadius > canvas.height || ball.y - ballRadius < 0) {
+          ball.speedY = -ball.speedY;
+        }
+
+        // Collide with paddle1
+        if (
+          ball.x - ballRadius < paddle1.x + paddleWidth &&
+          ball.y > paddle1.y &&
+          ball.y < paddle1.y + paddleHeight
+        ) {
+          ball.speedX = -ball.speedX;
+
+          // Slightly increase speed to add challenge
+          ball.speedX *= 1.05;
+          ball.speedY *= 1.05;
+        }
+
+        // Collide with paddle2
+        if (
+          ball.x + ballRadius > paddle2.x &&
+          ball.y > paddle2.y &&
+          ball.y < paddle2.y + paddleHeight
+        ) {
+          ball.speedX = -ball.speedX;
+
+          // Slightly increase speed to add challenge
+          ball.speedX *= 1.05;
+          ball.speedY *= 1.05;
+        }
+
+        // Ball goes out on left side (point for player 2)
+        if (ball.x - ballRadius < 0) {
+          paddle2.score++;
+          updateScore();
+          if (paddle2.score === winningScore) {
+            gameOver = true;
+            alert("¡Jugador 2 gana!");
+            resetGame();
+          } else {
+            resetBall();
+          }
+        }
+
+        // Ball goes out on right side (point for player 1)
+        if (ball.x + ballRadius > canvas.width) {
+          paddle1.score++;
+          updateScore();
+          if (paddle1.score === winningScore) {
+            gameOver = true;
+            alert("¡Jugador 1 gana!");
+            resetGame();
+          } else {
+            resetBall();
+          }
+        }
+      }
+
+      // Update score display
+      function updateScore() {
+        document.getElementById(
+          "score"
+        ).textContent = `Jugador 1: ${paddle1.score} - Jugador 2: ${paddle2.score}`;
+      }
+
+      // Reset game scores and positions
+      function resetGame() {
+        paddle1.score = 0;
+        paddle2.score = 0;
+        updateScore();
+        paddle1.y = canvas.height / 2 - paddleHeight / 2;
+        paddle2.y = canvas.height / 2 - paddleHeight / 2;
+        resetBall();
+        gameOver = false;
+      }
+
+      // Game loop
+      function gameLoop() {
+        if (!gameOver) {
+          updatePaddles();
+          updateBall();
+          draw();
+          requestAnimationFrame(gameLoop);
+        }
+      }
+
+      // Event listeners for key press
+      window.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowUp") upArrowPressed = true;
+        if (e.key === "ArrowDown") downArrowPressed = true;
+        if (e.key.toLowerCase() === "w") wPressed = true;
+        if (e.key.toLowerCase() === "s") sPressed = true;
+      });
+
+      window.addEventListener("keyup", function (e) {
+        if (e.key === "ArrowUp") upArrowPressed = false;
+        if (e.key === "ArrowDown") downArrowPressed = false;
+        if (e.key.toLowerCase() === "w") wPressed = false;
+        if (e.key.toLowerCase() === "s") sPressed = false;
+      });
+
+      // Start game
+      resetGame();
+      gameLoop();
+    </script>
+  </body>
+</html>
