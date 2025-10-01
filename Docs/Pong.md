@@ -29,6 +29,6 @@ Pong es uno de los primeros videojuegos arcade y fue creado por Atari en 1972. S
 
 ## Diagrama de Flujo del Juego
 
-![Foto](../assets/diagrama1.png)
+![Diagrama1](../assets/diagrama1.png)
 
-![Foto](../assets/diagrama2.png)
+![Diagrama2](../assets/diagrama2.png)
